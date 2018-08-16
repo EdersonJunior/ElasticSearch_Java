@@ -1,12 +1,12 @@
-package com.candidates.devs;
+package com.candidates;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DevsApplication {
+public class CandidatesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DevsApplication.class, args);
+		SpringApplication.run(CandidatesApplication.class, args);
 	}
 }

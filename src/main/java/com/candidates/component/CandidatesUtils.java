@@ -1,9 +1,9 @@
-package com.candidates.devs.component;
+package com.candidates.component;
 
 import org.springframework.stereotype.Component;
 
-@Component("searchUtils")
-public class SearchDevsUtils {
+@Component("candidatesUtils")
+public class CandidatesUtils {
 
     private static final int LAST_POSITIONS_TO_FIRST_VARIABLE_OF_JSON = 10;
 

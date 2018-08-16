@@ -1,4 +1,4 @@
-package com.candidates.devs.factory;
+package com.candidates.factory;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;

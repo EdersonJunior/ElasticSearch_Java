@@ -1,4 +1,4 @@
-package com.candidates.devs;
+package com.candidates;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

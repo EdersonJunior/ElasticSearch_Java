@@ -1,7 +1,7 @@
-package com.candidates.devs.component;
+package com.candidates.component;
 
-import com.candidates.devs.factory.ElasticSearchConnectionFactoryImp;
-import com.candidates.devs.model.Dev;
+import com.candidates.factory.ElasticSearchConnectionFactoryImp;
+import com.candidates.model.Candidates;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -12,29 +12,29 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Component("searchDevs")
-public class SearchDevsImp {
+@Component("candidatesImp")
+public class CandidatesImp {
 
-    private static final String DOCUMENT = "/candidates/devs/";
+    private static final String CANDIDATES_DOCUMENT = "/techwaves/candidates/";
 
     @Qualifier("elasticSearchFactory")
     @Autowired
     private ElasticSearchConnectionFactoryImp connectionFactory;
 
-    @Qualifier("searchUtils")
+    @Qualifier("candidatesUtils")
     @Autowired
-    private SearchDevsUtils utils;
+    private CandidatesUtils utils;
 
-    public Dev searchById(String id) throws IOException {
+    public Candidates searchById(String id) throws IOException {
         connectionFactory.createClient();
-        CloseableHttpResponse httpResponse = connectionFactory.searchDocumentById(DOCUMENT + id);
+        CloseableHttpResponse httpResponse = connectionFactory.searchDocumentById(CANDIDATES_DOCUMENT + id);
         String responseBody = EntityUtils.toString(httpResponse.getEntity());
 
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         responseBody = utils.removeSpecialCharactersFromJson(responseBody);
 
-        return gson.fromJson(responseBody, Dev.class);
+        return gson.fromJson(responseBody, Candidates.class);
     }
 
 

@@ -1,8 +1,8 @@
-package com.candidates.devs.model;
+package com.candidates.model;
 
 import java.util.Arrays;
 
-public class Dev {
+public class Candidates {
 
     private String name;
 

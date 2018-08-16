@@ -1,7 +1,7 @@
-package com.candidates.devs.controller;
+package com.candidates.controller;
 
-import com.candidates.devs.component.SearchDevsImp;
-import com.candidates.devs.model.Dev;
+import com.candidates.component.CandidatesImp;
+import com.candidates.model.Candidates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
-@RestController("/devs")
-public class SearchDevsController {
+@RestController("/candidates")
+public class CandidatesController {
 
-    @Qualifier("searchDevs")
+    @Qualifier("candidatesImp")
     @Autowired
-    private SearchDevsImp searchDevsImp;
+    private CandidatesImp candidatesImp;
 
     @GetMapping
-    public ResponseEntity<Dev> searchById(@RequestParam String id) throws IOException {
-        return new ResponseEntity<>(searchDevsImp.searchById(id), HttpStatus.OK);
+    public ResponseEntity<Candidates> searchById(@RequestParam String id) throws IOException {
+        return new ResponseEntity<>(candidatesImp.searchById(id), HttpStatus.OK);
     }
 }
