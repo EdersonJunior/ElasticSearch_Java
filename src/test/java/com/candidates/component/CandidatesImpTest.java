@@ -1,15 +1,13 @@
 package com.candidates.component;
 
 import com.candidates.factory.ElasticSearchConnectionFactoryImp;
-import com.candidates.model.Candidates;
+import com.candidates.model.Candidate;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
@@ -36,7 +34,7 @@ public class CandidatesImpTest {
 
     @Test
     public void testSearchByIdSuccessfully() throws IOException {
-        Candidates candidateResult = candidatesImp.searchById(CANDIDATE_ID);
+        Candidate candidateResult = candidatesImp.searchById(CANDIDATE_ID);
         Assert.assertEquals(CANDIDATE_NAME, candidateResult.getName());
     }
 }

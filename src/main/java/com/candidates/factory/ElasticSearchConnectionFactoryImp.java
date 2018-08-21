@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component("elasticSearchFactory")
-public class ElasticSearchConnectionFactoryImp implements ElasticSearchConnectionFactory {
+public class ElasticSearchConnectionFactoryImp implements ElasticSearchFactory {
 
     private static String wsUrl = "http://127.0.0.1:9200";
 
@@ -30,6 +30,15 @@ public class ElasticSearchConnectionFactoryImp implements ElasticSearchConnectio
 
     @Override
     public CloseableHttpResponse searchDocumentById(String document) throws IOException {
+        return getResponse(document);
+    }
+
+    @Override
+    public CloseableHttpResponse searchAll(String document) throws IOException {
+        return null;
+    }
+
+    private CloseableHttpResponse getResponse(String document) throws IOException {
         HttpGet method = new HttpGet(wsUrl + document);
 
         try {

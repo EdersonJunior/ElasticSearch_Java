@@ -2,7 +2,7 @@ package com.candidates.model;
 
 import java.util.Arrays;
 
-public class Candidates {
+public class Candidate {
 
     private String name;
 
