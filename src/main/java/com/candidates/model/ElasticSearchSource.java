@@ -1,22 +1,16 @@
 package com.candidates.model;
 
-import java.util.Arrays;
+import java.io.Serializable;
 
-public class Candidate {
+public class ElasticSearchSource implements Serializable {
 
     private String name;
-
     private String interests[];
-
-    private String countryOrigin;
-
-    private String countryLiving;
-
     private String city;
-
+    private String countryOrigin;
+    private String countryLiving;
     private String position;
-
-    private double salary;
+    private Double salary;
 
     public String getName() {
         return name;
@@ -32,6 +26,14 @@ public class Candidate {
 
     public void setInterests(String[] interests) {
         this.interests = interests;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getCountryOrigin() {
@@ -50,14 +52,6 @@ public class Candidate {
         this.countryLiving = countryLiving;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getPosition() {
         return position;
     }
@@ -66,25 +60,11 @@ public class Candidate {
         this.position = position;
     }
 
-    public double getSalary() {
+    public Double getSalary() {
         return salary;
     }
 
-    public void setSalary(double salary) {
+    public void setSalary(Double salary) {
         this.salary = salary;
     }
-
-    @Override
-    public String toString() {
-        return "Dev{" +
-                "name='" + name + '\'' +
-                ", interests=" + Arrays.toString(interests) +
-                ", countryOrigin='" + countryOrigin + '\'' +
-                ", countryLiving='" + countryLiving + '\'' +
-                ", city='" + city + '\'' +
-                ", position='" + position + '\'' +
-                ", salary=" + salary +
-                '}';
-    }
-
 }

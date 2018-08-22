@@ -1,6 +1,6 @@
 package com.candidates.component;
 
-import com.candidates.factory.ElasticSearchConnectionFactoryImp;
+import com.candidates.factory.ElasticSearchFactory;
 import com.candidates.model.Candidate;
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.io.IOException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {ElasticSearchConnectionFactoryImp.class, CandidatesUtils.class, CandidatesImp.class})
+@SpringBootTest(classes = {ElasticSearchFactory.class, CandidatesImp.class})
 //@Ignore
 public class CandidatesImpTest {
 
@@ -22,19 +22,15 @@ public class CandidatesImpTest {
 
     @Qualifier("elasticSearchFactory")
     @Autowired
-    private ElasticSearchConnectionFactoryImp connectionFactory;
+    private ElasticSearchFactory factory;
 
     @Qualifier("candidatesImp")
     @Autowired
     private CandidatesImp candidatesImp;
 
-    @Qualifier("candidatesUtils")
-    @Autowired
-    private CandidatesUtils utils;
-
     @Test
-    public void testSearchByIdSuccessfully() throws IOException {
-        Candidate candidateResult = candidatesImp.searchById(CANDIDATE_ID);
+    public void searchCandidadeById_shouldReturnCandidateNameDefinedAsHardCode() throws IOException {
+        Candidate candidateResult = candidatesImp.searchCandidateById(CANDIDATE_ID);
         Assert.assertEquals(CANDIDATE_NAME, candidateResult.getName());
     }
 }

@@ -1,7 +1,7 @@
 package com.candidates.component;
 
-import com.candidates.factory.ElasticSearchConnectionFactoryImp;
-import com.candidates.model.Candidate;
+import com.candidates.factory.ElasticSearchFactory;
+import com.candidates.model.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.List;
 
 @Component("candidatesImp")
 public class CandidatesImp {
@@ -20,35 +19,21 @@ public class CandidatesImp {
 
     @Qualifier("elasticSearchFactory")
     @Autowired
-    private ElasticSearchConnectionFactoryImp connectionFactory;
+    private ElasticSearchFactory factory;
 
-    @Qualifier("candidatesUtils")
-    @Autowired
-    private CandidatesUtils utils;
-
-    public Candidate searchById(String id) throws IOException {
-        String responseBody = searchDocument(id);
-
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        responseBody = utils.removeSpecialCharactersFromJson(responseBody);
-
-        return gson.fromJson(responseBody, Candidate.class);
-    }
-
-    public List<Candidate> searchAll() throws IOException {
-        String responseBody = searchDocument("_all");
+    public Candidate searchCandidateById(String id) throws IOException {
+        factory.createClient();
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
 
-        return null;
-    }
+        CloseableHttpResponse httpResponse = factory.searchDocumentById(CANDIDATES_DOCUMENT + id);
+        String responseBody = EntityUtils.toString(httpResponse.getEntity());
 
-    private String searchDocument(String id) throws IOException {
-        connectionFactory.createClient();
-        CloseableHttpResponse httpResponse = connectionFactory.searchDocumentById(CANDIDATES_DOCUMENT + id);
-        return EntityUtils.toString(httpResponse.getEntity());
-    }
+        ElasticSearchHitResponse hit = gson.fromJson(responseBody, ElasticSearchHitResponse.class);
+        String hitJson = gson.toJson(hit.get_source());
+        Candidate candidate = gson.fromJson(hitJson, Candidate.class);
 
+        return candidate;
+    }
 
 }
