@@ -26,14 +26,18 @@ public class CandidatesImp {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
 
-        CloseableHttpResponse httpResponse = factory.searchDocumentById(CANDIDATES_DOCUMENT + id);
-        String responseBody = EntityUtils.toString(httpResponse.getEntity());
+        return mapCandidateObject(gson, getHttpResponseBody(id));
+    }
 
+    private Candidate mapCandidateObject(Gson gson, String responseBody) {
         ElasticSearchHitResponse hit = gson.fromJson(responseBody, ElasticSearchHitResponse.class);
         String hitJson = gson.toJson(hit.get_source());
-        Candidate candidate = gson.fromJson(hitJson, Candidate.class);
+        return gson.fromJson(hitJson, Candidate.class);
+    }
 
-        return candidate;
+    private String getHttpResponseBody(String id) throws IOException {
+        CloseableHttpResponse httpResponse = factory.searchDocumentById(CANDIDATES_DOCUMENT + id);
+        return EntityUtils.toString(httpResponse.getEntity());
     }
 
 }
