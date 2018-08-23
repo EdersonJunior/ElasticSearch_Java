@@ -24,11 +24,11 @@ public class CandidatesImp {
 
     private static final String CANDIDATES_DOCUMENT = "/techwaves/candidates/";
 
-    private static String URL = "http://127.0.0.1:9200";
+    private static final String URL = "http://127.0.0.1:9200";
 
-    private static String HOST = "127.0.0.1:9200";
+    private static final String HOST = "127.0.0.1:9200";
 
-    private static String SCHEME = "http";
+    private static final String SCHEME = "http";
 
     @Autowired
     @Qualifier("elasticSearchFactory")
