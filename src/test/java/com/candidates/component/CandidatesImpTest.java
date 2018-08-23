@@ -2,6 +2,7 @@ package com.candidates.component;
 
 import com.candidates.factory.ElasticSearchFactory;
 import com.candidates.model.Candidate;
+import com.candidates.model.CandidateRequest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {ElasticSearchFactory.class, CandidatesImp.class})
@@ -18,7 +20,7 @@ import java.io.IOException;
 public class CandidatesImpTest {
 
     private final String CANDIDATE_NAME = "Angélica Fialho";
-    private final String CANDIDATE_ID = "139";
+    private final String CANDIDATE_ID = "584";
 
     @Qualifier("elasticSearchFactory")
     @Autowired
@@ -30,7 +32,22 @@ public class CandidatesImpTest {
 
     @Test
     public void searchCandidadeById_shouldReturnCandidateNameDefinedAsHardCode() throws IOException {
-        Candidate candidateResult = candidatesImp.searchCandidateById(CANDIDATE_ID);
+        Candidate candidateResult = candidatesImp.searchById(CANDIDATE_ID);
         Assert.assertEquals(CANDIDATE_NAME, candidateResult.getName());
+    }
+
+    @Test
+    public void updateCandidadeById_shouldUpdateCandidateDefinedAsHardCode() throws IOException, URISyntaxException {
+        String name = "\"New test name\"";
+        Candidate candidateResult = candidatesImp.searchById(CANDIDATE_ID);
+
+        candidateResult.setName(name);
+        CandidateRequest candidateRequest = new CandidateRequest(candidateResult);
+        candidateRequest.setId(Integer.parseInt(CANDIDATE_ID));
+
+        candidatesImp.updateById(candidateRequest);
+        candidateResult = candidatesImp.searchById(CANDIDATE_ID);
+
+        Assert.assertEquals(name, candidateResult.getName());
     }
 }

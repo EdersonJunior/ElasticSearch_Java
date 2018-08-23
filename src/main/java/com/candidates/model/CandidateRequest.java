@@ -1,8 +1,6 @@
 package com.candidates.model;
 
-import java.util.Arrays;
-
-public class Candidate {
+public class CandidateRequest {
 
     private String name;
 
@@ -18,14 +16,16 @@ public class Candidate {
 
     private double salary;
 
-    public Candidate(CandidateRequest candidateRequest) {
-        this.name = candidateRequest.getName();
-        setInterests(candidateRequest.getInterests());
-        this.countryLiving = candidateRequest.getCountryLiving();
-        this.countryLiving = candidateRequest.getCountryLiving();
-        this.city = candidateRequest.getCity();
-        this.position = candidateRequest.getPosition();
-        this.salary = candidateRequest.getSalary();
+    private int id;
+
+    public CandidateRequest(Candidate candidate) {
+        this.name = candidate.getName();
+        setInterests(candidate.getInterests());
+        this.countryLiving = candidate.getCountryLiving();
+        this.countryLiving = candidate.getCountryLiving();
+        this.city = candidate.getCity();
+        this.position = candidate.getPosition();
+        this.salary = candidate.getSalary();
     }
 
     public String getName() {
@@ -84,17 +84,11 @@ public class Candidate {
         this.salary = salary;
     }
 
-    @Override
-    public String toString() {
-        return "Dev{" +
-                "name='" + name + '\'' +
-                ", interests=" + Arrays.toString(interests) +
-                ", countryOrigin='" + countryOrigin + '\'' +
-                ", countryLiving='" + countryLiving + '\'' +
-                ", city='" + city + '\'' +
-                ", position='" + position + '\'' +
-                ", salary=" + salary +
-                '}';
+    public int getId() {
+        return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 }
