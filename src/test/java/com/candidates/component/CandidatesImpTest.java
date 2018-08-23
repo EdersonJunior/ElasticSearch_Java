@@ -19,7 +19,7 @@ import java.net.URISyntaxException;
 //@Ignore
 public class CandidatesImpTest {
 
-    private final String CANDIDATE_NAME = "Angélica Fialho";
+    private final String CANDIDATE_NAME = "Nathy Costa";
     private final String CANDIDATE_ID = "584";
 
     @Qualifier("elasticSearchFactory")
@@ -38,16 +38,15 @@ public class CandidatesImpTest {
 
     @Test
     public void updateCandidadeById_shouldUpdateCandidateDefinedAsHardCode() throws IOException, URISyntaxException {
-        String name = "\"New test name\"";
         Candidate candidateResult = candidatesImp.searchById(CANDIDATE_ID);
 
-        candidateResult.setName(name);
+        candidateResult.setName(CANDIDATE_NAME);
         CandidateRequest candidateRequest = new CandidateRequest(candidateResult);
         candidateRequest.setId(Integer.parseInt(CANDIDATE_ID));
 
         candidatesImp.updateById(candidateRequest);
         candidateResult = candidatesImp.searchById(CANDIDATE_ID);
 
-        Assert.assertEquals(name, candidateResult.getName());
+        Assert.assertEquals(CANDIDATE_NAME, candidateResult.getName());
     }
 }
