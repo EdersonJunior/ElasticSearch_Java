@@ -46,7 +46,7 @@ public class CandidatesImp {
     @Qualifier("elasticSearchFactory")
     private ElasticSearchFactory elasticSearchFactory;
 
-    public List<Candidate> searchAll() throws IOException, NoSuchFieldException {
+    public List<Candidate> searchAll() throws IOException {
         elasticSearchFactory.createClient();
         builder = new GsonBuilder();
         gson = builder.create();
@@ -60,8 +60,10 @@ public class CandidatesImp {
 
     private List<Candidate> buildCandidatesListFromHitsResponse(ElasticSearchHitsResponse hitsResponse) {
         List<Candidate> candidates = new ArrayList<>();
-        List hitLinkedTreeMapObject = gson.fromJson(gson.toJson(hitsResponse.getHits().getHits()), List.class);
-        for (Object hitMap : hitLinkedTreeMapObject) {
+        String hitsResponseJson = gson.toJson(hitsResponse.getHits().getHits());
+        List hitsLinkedTreeMapObject = gson.fromJson(hitsResponseJson, List.class);
+
+        for (Object hitMap : hitsLinkedTreeMapObject) {
             LinkedTreeMap linkedTreeMapList = (LinkedTreeMap) hitMap;
             Object sourceObject = linkedTreeMapList.get("_source");
             LinkedTreeMap sourceMapList = (LinkedTreeMap) sourceObject;

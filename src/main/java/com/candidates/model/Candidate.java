@@ -6,7 +6,7 @@ public class Candidate {
 
     private String name;
 
-    private String interests[];
+    private String[] interests;
 
     private String countryOrigin;
 
