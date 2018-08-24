@@ -4,6 +4,12 @@ import java.io.Serializable;
 
 public class ElasticSearchHitResponse implements Serializable {
 
+    private Object _index;
+
+    private Object _type;
+
+    private Object _score;
+
     private String _id;
 
     private ElasticSearchSource _source;

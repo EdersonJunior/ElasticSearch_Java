@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/candidates")
@@ -24,6 +25,11 @@ public class CandidatesController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<Candidate> searchById(@PathVariable String id) throws IOException {
         return new ResponseEntity<>(candidatesImp.searchById(id), HttpStatus.OK);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<Candidate>> searchAll() throws IOException, NoSuchFieldException {
+        return new ResponseEntity<>(candidatesImp.searchAll(), HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}")

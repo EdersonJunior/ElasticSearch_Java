@@ -28,6 +28,10 @@ public class Candidate {
         this.salary = candidateRequest.getSalary();
     }
 
+    public Candidate() {
+
+    }
+
     public String getName() {
         return name;
     }
