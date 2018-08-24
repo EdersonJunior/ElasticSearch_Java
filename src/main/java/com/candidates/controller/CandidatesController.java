@@ -39,5 +39,10 @@ public class CandidatesController {
         return new ResponseEntity<>("Updated Successfully", HttpStatus.OK);
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable String id) throws IOException, NoSuchFieldException {
+        candidatesImp.deleteById(id);
+        return new ResponseEntity<>("Deleted Successfully", HttpStatus.OK);
+    }
 
 }

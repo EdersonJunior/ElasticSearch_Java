@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIBuilder;
@@ -109,7 +110,6 @@ public class CandidatesImp {
         return gson.fromJson(hitJson, Candidate.class);
     }
 
-
     public void updateById(CandidateRequest candidateRequest) throws IOException, URISyntaxException {
         elasticSearchFactory.createClient();
         builder = new GsonBuilder();
@@ -128,5 +128,14 @@ public class CandidatesImp {
         elasticSearchFactory.executeHttpRequest(put);
     }
 
+    public void deleteById(String id) throws IOException {
+        elasticSearchFactory.createClient();
+        builder = new GsonBuilder();
+        gson = builder.create();
+
+        HttpDelete httpDelete = new HttpDelete(URL + CANDIDATES_DOCUMENT + id);
+        elasticSearchFactory.executeHttpRequest(httpDelete);
+
+    }
 
 }
