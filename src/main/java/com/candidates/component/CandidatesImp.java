@@ -74,19 +74,23 @@ public class CandidatesImp {
                 interestsArray[i] = objects[i].toString();
             }
 
-            Candidate candidate = new Candidate();
-            candidate.setName(trimToNull(sourceMapList.get("name").toString()));
-            candidate.setInterests(interestsArray);
-            candidate.setCountryOrigin(trimToNull(sourceMapList.get("countryOrigin").toString()));
-            candidate.setCountryLiving(trimToNull(sourceMapList.get("countryLiving").toString()));
-            candidate.setCity(trimToNull(sourceMapList.get("city").toString()));
-            candidate.setPosition(trimToNull(sourceMapList.get("position").toString()));
-            candidate.setSalary(Double.parseDouble(trimToNull(sourceMapList.get("salary").toString())));
-
+            Candidate candidate = createCandidateByAttributes(sourceMapList, interestsArray);
             candidates.add(candidate);
         }
 
         return candidates;
+    }
+
+    private Candidate createCandidateByAttributes(LinkedTreeMap sourceMapList, String[] interestsArray) {
+        Candidate candidate = new Candidate();
+        candidate.setName(trimToNull(sourceMapList.get("name").toString()));
+        candidate.setInterests(interestsArray);
+        candidate.setCountryOrigin(trimToNull(sourceMapList.get("countryOrigin").toString()));
+        candidate.setCountryLiving(trimToNull(sourceMapList.get("countryLiving").toString()));
+        candidate.setCity(trimToNull(sourceMapList.get("city").toString()));
+        candidate.setPosition(trimToNull(sourceMapList.get("position").toString()));
+        candidate.setSalary(Double.parseDouble(trimToNull(sourceMapList.get("salary").toString())));
+        return candidate;
     }
 
     public Candidate searchById(String id) throws IOException {

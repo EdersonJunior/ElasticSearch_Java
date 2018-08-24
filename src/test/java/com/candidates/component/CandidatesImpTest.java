@@ -49,4 +49,9 @@ public class CandidatesImpTest {
 
         Assert.assertEquals(CANDIDATE_NAME, candidateResult.getName());
     }
+
+    @Test
+    public void searchAllCandidates_shouldReturnACandidatesListNotEmpty() throws IOException, NoSuchFieldException {
+        Assert.assertTrue(!candidatesImp.searchAll().isEmpty());
+    }
 }
